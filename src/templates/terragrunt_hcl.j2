@@ -1,0 +1,7 @@
+inputs = {
+  {% for scope, value in scopes.items() -%}
+  {% for key in value.secrets -%}
+    {{key.variable_with_env}} = yamldecode(sops_decrypt_file(("{{tf_secrets}}")))["{{key.variable_with_env}}"]
+  {% endfor %}
+  {% endfor %}
+}

@@ -1,0 +1,5 @@
+{% for scope, value in scopes.items() -%}
+{% for key in value.secrets -%}
+variable "{{key.variable_with_env}}" {}
+{% endfor %}
+{% endfor %}

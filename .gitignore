@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Creds
+src/api_key/api-key.yaml
+services/*
