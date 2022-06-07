@@ -12,7 +12,7 @@ URL = "https://git.llcmms.loc"
 
 
 def auth():
-    path = str(Path().absolute()) + '/src/api_key/api-key.yaml'
+    path = str(Path().absolute()) + '/api_key/api-key.yaml'
     try:
         with open(path, 'r') as data:
             return yaml.safe_load(data)['gitlab']['api_key']

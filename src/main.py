@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import sys, traceback
+import argparse
 import terraform
 import gitlab
 
@@ -72,8 +73,38 @@ def sort_data(
 
 
 if __name__ == "__main__":
-    project_name = "fxbison"  # ToDo In run argument
-    new_project_id = 371
+    my_parser = argparse.ArgumentParser(description='List the content of a folder')
+    # my_parser.add_argument('Project_Name',
+    #                        metavar='project_name',
+    #                        type=str,
+    #                        #prog='main',
+    #                        #usage='%(prog)s [options] project_name',
+    #                        help='the project name in GitLab')
+    my_parser.add_argument(
+        '-p',
+        '--project',
+        action='store',
+        required=True,
+        type=str,
+        help='Input project name in GitLab'
+    )
+    my_parser.add_argument(
+        '-i',
+        '--id',
+        action='store',
+        required=True,
+        type=int,
+        help='Input project name in GitLab'
+    )
+
+    args = my_parser.parse_args()
+
+
+    print(args.project)
+    print(args.id)
+
+    project_name = args.project  # ToDo In run argument
+    new_project_id = 374
     scopes = sort_data(project_name)
 
     terraform.generate_tf_manifest_file(
