@@ -1,0 +1,23 @@
+{% for scope, value in scopes.items() %}
+resource "gitlab_project_variable" "{{project_name}}-{{scope |lower}}" {
+  for_each          = local.{{project_name}}-{{scope |lower}}
+  project           = "{{new_project_id}}"
+  key               = each.key
+  value             = each.value
+  protected         = false
+  environment_scope = "{{scope |upper}}"
+}
+
+locals {
+  {{project_name}}-{{scope |lower}} = {
+    {% for key in value.variables -%}
+        {{key.key}} = "{{key.value}}"
+    {% endfor %}
+    {% for key in value.secrets -%}
+        {{key.key}} = "${var.{{key.variable_with_env}}}"
+    {% endfor %}
+  }
+}
+
+
+{% endfor %}
